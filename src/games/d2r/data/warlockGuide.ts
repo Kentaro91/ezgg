@@ -828,6 +828,30 @@ export const warlockGuideData: GuidePhase[] = [
           },
         ],
       },
+      {
+        type: 'act-header',
+        actTitle: '패스트 캐스트 (FCR) 프레임',
+      },
+      {
+        type: 'steps',
+        steps: [
+          {
+            badge: '⚡', badgeColor: 'gold',
+            tags: [{ label: 'FCR', type: 'stat' }],
+            title: '악마술사 패캐 프레임 표',
+            content:
+              '15프레임 : 0% 이상\n14프레임 : 9% 이상\n13프레임 : 18% 이상\n12프레임 : 30% 이상\n11프레임 : 48% 이상\n10프레임 : 75% 이상 (가성비 구간)\n  9프레임 : 125% 이상 (종결 구간)',
+            highlight: true,
+          },
+          {
+            badge: '▸', badgeColor: 'echo',
+            tags: [{ label: '팁', type: 'tip' }],
+            title: '주요 구간',
+            content:
+              '75% — 가성비 구간. 영혼 방패(25-35%) + 잠행(25%) 등으로 도달 가능.\n125% — 종결 구간. 고급 장비 필요. 메아리 빌드에서 목표.',
+          },
+        ],
+      },
     ],
   },
 ];
