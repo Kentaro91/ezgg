@@ -1,3 +1,4 @@
+import { useState, useEffect } from 'react';
 import { Link, Outlet, useLocation } from 'react-router-dom';
 import { useTheme } from './ThemeProvider';
 
@@ -9,6 +10,13 @@ export default function Layout() {
   const location = useLocation();
   const { theme, toggle } = useTheme();
   const isDark = theme === 'dark';
+  const [showTop, setShowTop] = useState(false);
+
+  useEffect(() => {
+    const onScroll = () => setShowTop(window.scrollY > 400);
+    window.addEventListener('scroll', onScroll, { passive: true });
+    return () => window.removeEventListener('scroll', onScroll);
+  }, []);
 
   return (
     <div className="min-h-screen flex flex-col">
@@ -73,6 +81,22 @@ export default function Layout() {
       }`}>
         EZGG — 개인 게임 가이드 모음
       </footer>
+
+      {showTop && (
+        <button
+          onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
+          className={`fixed bottom-6 left-6 z-50 w-10 h-10 rounded-full shadow-lg flex items-center justify-center transition-all hover:scale-110 active:scale-95 ${
+            isDark
+              ? 'bg-white/10 text-white/60 hover:bg-white/20 shadow-black/20'
+              : 'bg-white text-gray-400 hover:bg-gray-50 shadow-gray-300/50 border border-gray-200'
+          }`}
+          title="맨 위로"
+        >
+          <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}>
+            <path strokeLinecap="round" strokeLinejoin="round" d="M5 15l7-7 7 7" />
+          </svg>
+        </button>
+      )}
     </div>
   );
 }
