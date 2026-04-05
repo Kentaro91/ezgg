@@ -1,0 +1,16 @@
+{
+  "name": "EZGG - Gaming Guides",
+  "short_name": "EZGG",
+  "description": "게임 가이드 & 팁 모음",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#0b0b12",
+  "theme_color": "#3b82f6",
+  "icons": [
+    {
+      "src": "/favicon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml"
+    }
+  ]
+}
