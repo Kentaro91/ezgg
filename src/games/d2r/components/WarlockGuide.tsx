@@ -168,6 +168,12 @@ export default function WarlockGuide() {
   const isActTab = ['normal', 'nm', 'hell'].includes(currentPhase.id);
   const statsPhase = warlockGuideData.find((p) => p.id === 'stats');
 
+  const actHeaders = useMemo(() => {
+    return currentPhase.sections
+      .map((s, i) => s.type === 'act-header' ? { title: s.actTitle!, index: i } : null)
+      .filter((x): x is { title: string; index: number } => x !== null);
+  }, [currentPhase]);
+
   // Progress calculation
   const phaseProgress = useMemo(() => {
     let total = 0;
@@ -333,6 +339,28 @@ export default function WarlockGuide() {
           )}
         </div>
 
+        {/* Act quick nav */}
+        {actHeaders.length > 0 && (
+          <div className="flex gap-1.5 mt-3 mb-2 overflow-x-auto">
+            {actHeaders.map((act) => (
+              <button
+                key={act.index}
+                onClick={() => {
+                  document.getElementById(`act-${currentPhase.id}-${act.index}`)
+                    ?.scrollIntoView({ behavior: 'smooth' });
+                }}
+                className={`shrink-0 px-3 py-1.5 rounded-md text-[11px] font-semibold transition-all ${
+                  isDark
+                    ? 'text-magic-light/70 border border-magic/20 hover:bg-magic/10 hover:text-magic-light'
+                    : 'text-purple-500/70 border border-purple-200 hover:bg-purple-50 hover:text-purple-600'
+                }`}
+              >
+                {act.title}
+              </button>
+            ))}
+          </div>
+        )}
+
         {/* Stats tab: images first */}
         {isStatsTab && (
           <div className="grid grid-cols-1 md:grid-cols-2 gap-3 mb-4">
@@ -355,7 +383,8 @@ export default function WarlockGuide() {
             return (
               <div
                 key={si}
-                className="bg-bg-secondary border-l-[3px] border-magic px-3.5 py-2.5 rounded-r-md mt-4 mb-2 font-bold text-sm text-magic-light"
+                id={`act-${currentPhase.id}-${si}`}
+                className="scroll-mt-28 bg-bg-secondary border-l-[3px] border-magic px-3.5 py-2.5 rounded-r-md mt-4 mb-2 font-bold text-sm text-magic-light"
               >
                 {section.actTitle}
               </div>
